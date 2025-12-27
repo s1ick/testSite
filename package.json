@@ -3,23 +3,29 @@
   "version": "1.0.0",
   "description": "testSite",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npx rollup --config",
-    "start": "npx rollup --config --watch"
+    "build": "rollup -c",
+    "dev": "rollup -c --watch",
+    "start": "rollup -c --watch",
+    "serve": "rollup -c --watch"
   },
   "author": "Matveev Ivan",
-  "type": "module",
   "license": "ISC",
- "@rollup/plugin-commonjs": "^29.0.0",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^29.0.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-terser": "^0.4.4",
     "posthtml-include": "^2.0.1",
     "rollup": "^4.54.0",
+    "rollup-plugin-copy": "^3.5.0",
+    "rollup-plugin-livereload": "^2.0.5",
     "rollup-plugin-posthtml": "^1.1.0",
     "rollup-plugin-scss": "^4.0.1",
+    "rollup-plugin-serve": "^3.0.0",
     "sass": "^1.97.1",
-    "svgo": "^4.0.0",
+    "svgo": "^4.0.0"
+  },
   "dependencies": {
     "scss-reset": "^1.2.2"
   },

@@ -1,35 +1,62 @@
-import resolve from "@rollup/plugin-node-resolve";
-import commonjs from "@rollup/plugin-commonjs";
-import posthtml from "rollup-plugin-posthtml";
-import include from "posthtml-include";
+import { defineConfig } from "rollup";
 import scss from "rollup-plugin-scss";
-import { terser } from "rollup-plugin-terser";
+import copy from "rollup-plugin-copy";
+import livereload from "rollup-plugin-livereload";
+import serve from "rollup-plugin-serve";
 
-export default {
+// ПРАВИЛЬНЫЙ импорт для posthtml-include
+import posthtml from "rollup-plugin-posthtml";
+import posthtmlInclude from "posthtml-include";
+
+export default defineConfig({
   input: "src/js/main.js",
-
   output: {
-    file: "dist/js/bundle.js",
+    file: "build/bundle.js",
     format: "iife",
     sourcemap: true,
   },
-
   plugins: [
-    resolve(),
-    commonjs(),
-
+    // 1. Обработка HTML ДО копирования
     posthtml({
-      include: true,
-      plugins: [include()],
-      extract: true,
+      plugins: [posthtmlInclude()],
+      include: "**/*.html",
     }),
 
+    // 2. Копируем обработанный HTML
+    copy({
+      targets: [
+        {
+          src: "index.html",
+          dest: "build/",
+          // transform больше не нужен, posthtml обработал
+        },
+      ],
+      hook: "writeBundle",
+      verbose: true,
+    }),
+
+    // 3. SCSS
     scss({
-      output: "dist/css/main.css",
-      sourceMap: true,
+      output: "build/bundle.css",
       outputStyle: "expanded",
+      sourceMap: true,
+      watch: "src/scss/",
     }),
 
-    terser(),
+    // 4. Сервер и livereload
+    serve({
+      open: true,
+      contentBase: "build",
+      port: 3000,
+      host: "localhost",
+    }),
+
+    livereload({
+      watch: "build",
+      delay: 300,
+    }),
   ],
-};
+  watch: {
+    exclude: "node_modules/**",
+  },
+});
