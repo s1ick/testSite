@@ -1,0 +1,34 @@
+{
+  "name": "testSite",
+  "version": "1.0.0",
+  "description": "testSite",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx rollup --config",
+    "start": "npx rollup --config --watch"
+  },
+  "author": "Matveev Ivan",
+  "type": "module",
+  "license": "ISC",
+ "@rollup/plugin-commonjs": "^29.0.0",
+    "@rollup/plugin-node-resolve": "^16.0.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "posthtml-include": "^2.0.1",
+    "rollup": "^4.54.0",
+    "rollup-plugin-posthtml": "^1.1.0",
+    "rollup-plugin-scss": "^4.0.1",
+    "sass": "^1.97.1",
+    "svgo": "^4.0.0",
+  "dependencies": {
+    "scss-reset": "^1.2.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/s1ick/template-rollup.git"
+  },
+  "bugs": {
+    "url": "https://github.com/s1ick/template-rollup/issues"
+  },
+  "homepage": "https://github.com/s1ick/template-rollup#readme"
+}
